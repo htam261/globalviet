@@ -1,0 +1,211 @@
+<?php
+if (isset($_POST['submit']) == true) {
+    var_dump("submit");
+   // exit();
+}
+?>
+<div class="col-md-12 divcontain bacground-while padding-left-right-0">
+    <div class="col-md-12 padding-left-right-0">
+        <img src="<?= STATIC_PATH_URL ?>images/web-RRIV-finall1_03.jpg" class="img-46" height="46"/>
+    </div>
+    <div class="row padding-left-right-0">
+        <!--gioi thiêu-->
+        <div class="col-md-6">
+            <div class="jumbotron magin-bottom-0 bacground-while padding-top-0">
+                <h1><b style="text-transform: uppercase;font-size: 18px; ">Thông tin cá nhân</b></h1>
+
+                <div class="row ">
+                    <div class="col-md-12">
+                        <p class="text-justify">
+                            <?= stripslashes($info->content) ?>
+                        </p>
+                    </div>
+                   <div class="col-md-12 table-bordered form-signincontrol">
+                        <form id="form-contactus" action="" class='form-lienhe' data-toggle='validator' role='form'
+                              name="classForm" method="post">
+                            <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>"
+                                   value="<?php echo $this->security->get_csrf_hash(); ?>">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    <span></span>
+                                </label>
+                                <input type="text" class="form-control require" name="Name" value="" placeholder="Tên"
+                                       label="Text"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control require" name="Email" value="" placeholder="Email"
+                                       label="Text"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control require" name="Phone" value="" placeholder="Điện thoại"
+                                       label="Text"/>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="textarea" class="form-control require" name="EmailMsg" rows="12" placeholder="Tin nhắn"
+                                          label="Text Area" type="textarea"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="button" name="sent" class="btn btn-green-full"
+                                       onclick="saveData()"
+                                       value="&nbsp; Gửi &nbsp;">
+                                <input style="" type="submit" id="submit" name="submit" value="cap nhat"/>
+                            </div>
+                        </form>
+                       <!--     <script src="<?= STATIC_PATH_URL ?>js/jquery.js"></script>
+
+                             <script src="<?= STATIC_PATH_URL ?>js/jquery.js"></script>
+                               <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+-->
+                       <script src="<?= STATIC_PATH_URL ?>js/jquery.validate.min.js"></script>
+                       <script type="text/javascript">
+
+                           function saveData() {
+                               var status = validate();
+                               if (status == true) {
+                                    Sentmail();
+                                  // jQuery('form[name=classForm]').find('#submit').click();
+                               }
+                               return false;
+                           }
+
+                           function clearValidate() {
+                               jQuery('form[name=classForm]').find('.require-label').removeClass('redColor');
+                           }
+
+                           function validate() {
+                               // clearValidate();
+                               var returndata = true;
+                               jQuery('form[name=classForm]').find('.require').each(
+                                   function () {
+                                       var value = jQuery(this).val();
+
+                                       if (value == 0 || value == -1) {
+                                           var ref = jQuery(this).attr('placeholder');
+                                           alert('Cung cấp ' + ref + ' của bạn.');
+                                           returndata = false;
+                                           return false;
+                                       }
+                                   }
+                               );
+                               return returndata;
+                           }
+
+                           function Sentmail() {
+                               // clearValidate();
+//                               var returndata = true;
+                               //  document.getElementById('form-contactus').validator().on('submit', function () {//.submit(
+//                               $("#form-contactus").validator().on('submit', function (e) {
+//                                   //   function(){
+//                                   alert("a");
+//                                   if (e.isDefaultPrevented()) {
+//                                       // handle the invalid form...
+//                                   } else {
+                                       jQuery.ajax({
+                                           type: "POST",
+                                           url: "<?php echo base_url('mail/sentmail'); ?>",
+                                           dataType: 'json',
+                                           data: jQuery('#form-contactus').serialize(),
+                                           success: function (res) {
+                                               returndata = res;
+                                           }
+                                       });
+//                                   }
+//                                   returndata = false;
+//                               })
+//                               return returndata;
+                           }
+
+                       </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end gioi thieu-->
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-6 col-md-12 color-black">
+                    <h1 class="padding-left-10-re"><b style="text-transform: uppercase;font-size: 18px; ">Bản đồ vị
+                            trí</b></h1>
+
+                    <div class="col-lg-12 boder-top-2 padding-top-bottom-10 padding-left-0 color-blackold">
+                        <?= stripslashes($maps->content) ?>
+                        <!--lien he-->
+                        <!--
+                        <p class="text-justify padding-left-10-re">
+                            Lorem ipsum dolor sit consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                        <p class="padding-left-10-re"><i class="glyphicon-ico-Ellipse"></i> Văn phòng: <a href="http://maps.vietbando.com/maps/?t=1&st=0&sk=ph%C3%BA+nh%E1%BA%ADn&l=18&kv=10.7967750,106.687076"><font color="green"> (Thành phố hồ chí minh)</font></a></p>
+                        <p class="padding-left-10-re"><i class="glyphicon-ico-Ellipse"></i> Trung tâm nghiên cứu và thực nghiệm: <a href="http://maps.vietbando.com/maps/?t=1&st=0&sk=ph%C3%BA+nh%E1%BA%ADn&l=18&kv=10.7967750,106.687076"><font color="green"> (Bình Dương)</font></a></p>
+                        <p class="padding-left-10-re"><i class="glyphicon-ico-Ellipse"></i> Trung tâm nghiên cứu phát triển cao su Tiểu điền: <a href="http://maps.vietbando.com/maps/?t=1&st=0&sk=ph%C3%BA+nh%E1%BA%ADn&l=18&kv=10.7967750,106.687076"><font color="green"> (Đồng Nai)</font></a></p>
+                        <p class="padding-left-10-re"><i class="glyphicon-ico-Ellipse"></i> Trung tâm nghiên cứu chuyển giao kỹ thuật tây nguyên: <a href="http://maps.vietbando.com/maps/?t=1&st=0&sk=ph%C3%BA+nh%E1%BA%ADn&l=18&kv=10.7967750,106.687076"><font color="green"> (Gia Lai)</font></a></p>
+                        -->
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-12 color-black padding-left-right-0">
+                    <div class="col-md-12">
+                        <div class="img-responsive width-img-100-100 width-img-80-80" style="height:365px;">
+                            <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+                            <script>
+                                <?=$point->summary?>
+                                /*
+                                 function initialize() {
+                                 var mapOptions = {
+                                 zoom: 4,
+                                 center: new google.maps.LatLng(10.797165, 106.686712)
+                                 };
+                                 var map = new google.maps.Map(document.getElementById('map-canvas'),
+                                 mapOptions);
+                                 var A =[];
+                                 A[0]=new google.maps.LatLng(10.797165, 106.686712);
+                                 A[1]=new google.maps.LatLng(10.791252, 106.644521);
+                                 A[2]=new google.maps.LatLng(10.795447, 106.682244);
+                                 var N= A.length;
+
+                                 var southWest = new google.maps.LatLng(10.733463, 106.619950);//toa do phia nam thap nhat trong khung
+                                 var northEast = new google.maps.LatLng(11.076108, 106.786038);//toa đô phia bac cao nhat trong khung
+                                 var bounds = new google.maps.LatLngBounds(southWest, northEast);
+                                 map.fitBounds(bounds);
+                                 for (var i = 0; i <=N; i++) {
+                                 var lngSpan = A[i].lng();
+                                 var latSpan = A[i].lat();
+                                 var position = new google.maps.LatLng(latSpan,lngSpan);
+                                 var marker = new google.maps.Marker({
+                                 position: position,
+                                 map: map
+                                 });
+                                 marker.setTitle((i + 1).toString());
+                                 attachSecretMessage(marker, i);
+                                 }
+                                 }
+                                 function attachSecretMessage(marker, num) {
+                                 //['This', 'is', 'the', 'secret', 'message'];
+                                 var message=[] ;
+                                 message[0]="This";
+                                 message[1]="is";
+                                 message[2]="the";
+                                 message[3]="secret";
+                                 message[4]="message";
+                                 var infowindow = new google.maps.InfoWindow({
+                                 content: message[num]
+                                 });
+                                 google.maps.event.addListener(marker, 'click', function() {
+                                 //alert(num);
+                                 infowindow.open(marker.get('map'), marker);
+                                 });
+                                 }
+                                 google.maps.event.addDomListener(window, 'load', initialize);
+                                 */
+                            </script>
+                            <div id="map-canvas"></div>
+                        </div>
+                        <!-- <img src="images/Layer-26.jpg" style="height:365px;" class="img-responsive width-img-100-100 width-img-80-80" alt="" title="">
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
