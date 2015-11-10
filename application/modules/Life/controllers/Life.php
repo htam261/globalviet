@@ -73,7 +73,7 @@ class Life extends MY_Controller
             'result' => $result[0],
             'module' => $this->module,
             'id' => $id,
-            'categories' => $this->category->getParentAll(null)
+            'categories' => $this->category->getParentAll(0)
         );
 
         $this->load->library('ckeditor');

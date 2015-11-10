@@ -11,3 +11,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+#RewriteRule ^(.*)$ http://rriv.com.vn:8080/manager/$1 [L,R=301,NC]

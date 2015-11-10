@@ -21,7 +21,7 @@ class Category_model extends MY_Model {
 			$this->db->where('created_date >= "'.date('Y-m-d 00:00:00',strtotime($this->input->post('dateFrom'))).'"');
 			$this->db->where('created_date <= "'.date('Y-m-d 23:59:59',strtotime($this->input->post('dateTo'))).'"');
 		}
-        $this->db->where('parent_id',null);
+        $this->db->where('parent_id',0);
 		$query = $this->db->get(PREFIX.$this->table);
 
 		if($query->result()){
@@ -46,7 +46,7 @@ class Category_model extends MY_Model {
 			$this->db->where('created_date >= "'.date('Y-m-d 00:00:00',strtotime($this->input->post('dateFrom'))).'"');
 			$this->db->where('created_date <= "'.date('Y-m-d 23:59:59',strtotime($this->input->post('dateTo'))).'"');
 		}
-        $this->db->where('parent_id',null);
+        $this->db->where('parent_id',0);
 		$query = $this->db->count_all_results(PREFIX.$this->table);
 
 		if($query > 0){
